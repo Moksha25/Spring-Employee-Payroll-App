@@ -10,8 +10,6 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    //private String gender;
-    //private String department;
     private double salary;
 
     public Employee() {
@@ -19,8 +17,6 @@ public class Employee {
 
     public Employee(String name, double salary) {
         this.name = name;
-        //this.gender = gender;
-        //this.department = department;
         this.salary = salary;
     }
 
@@ -40,22 +36,6 @@ public class Employee {
         this.name = name;
     }
 
-//    public String getGender() {
-//        return gender;
-//    }
-
-//    public void setGender(String gender) {
-//        this.gender = gender;
-//    }
-//
-//    public String getDepartment() {
-//        return department;
-//    }
-//
-//    public void setDepartment(String department) {
-//        this.department = department;
-//    }
-
     public double getSalary() {
         return salary;
     }
@@ -69,8 +49,6 @@ public class Employee {
         return "Employee{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-//                ", gender='" + gender + '\'' +
-//                ", department='" + department + '\'' +
                 ", salary=" + salary +
                 '}';
     }
