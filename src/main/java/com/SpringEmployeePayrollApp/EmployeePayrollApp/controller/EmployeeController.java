@@ -1,5 +1,6 @@
 package com.SpringEmployeePayrollApp.EmployeePayrollApp.controller;
 
+import com.SpringEmployeePayrollApp.EmployeePayrollApp.dto.EmployeeDTO;
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.model.Employee;
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("")
+    @GetMapping
     public List<Employee> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
@@ -33,13 +34,13 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.saveEmployee(employee);
+    public Employee createEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        return employeeService.saveEmployee(employeeDTO);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
-        Employee employee = employeeService.updateEmployee(id, updatedEmployee);
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeDTO employeeDTO) {
+        Employee employee = employeeService.updateEmployee(id, employeeDTO);
         return ResponseEntity.ok(employee);
     }
 

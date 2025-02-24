@@ -1,5 +1,6 @@
 package com.SpringEmployeePayrollApp.EmployeePayrollApp.service;
 
+import com.SpringEmployeePayrollApp.EmployeePayrollApp.dto.EmployeeDTO;
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.model.Employee;
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,18 +27,20 @@ public class EmployeeService {
         return employeeRepository.findById(id);
     }
 
-    public Employee saveEmployee(Employee employee) {
+    public Employee saveEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee(
+                employeeDTO.getName(),
+                employeeDTO.getSalary()
+        );
         return employeeRepository.save(employee);
     }
 
-    public Employee updateEmployee(Long id, Employee updatedEmployee) {
+    public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
         Optional<Employee> existingEmployee = employeeRepository.findById(id);
         if (existingEmployee.isPresent()) {
             Employee employee = existingEmployee.get();
-            employee.setName(updatedEmployee.getName());
-//            employee.setGender(updatedEmployee.getGender());
-//            employee.setDepartment(updatedEmployee.getDepartment());
-            employee.setSalary(updatedEmployee.getSalary());
+            employee.setName(employeeDTO.getName());
+            employee.setSalary(employeeDTO.getSalary());
             return employeeRepository.save(employee);
         } else {
             throw new RuntimeException("Employee not found with id: " + id);
