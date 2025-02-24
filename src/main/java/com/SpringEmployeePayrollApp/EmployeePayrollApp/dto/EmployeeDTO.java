@@ -1,5 +1,6 @@
 package com.SpringEmployeePayrollApp.EmployeePayrollApp.dto;
 
+
 public class EmployeeDTO {
 
     private String name;
