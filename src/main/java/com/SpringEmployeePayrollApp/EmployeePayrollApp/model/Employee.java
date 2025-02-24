@@ -2,7 +2,6 @@ package com.SpringEmployeePayrollApp.EmployeePayrollApp.model;
 
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "employees")
 public class Employee {
