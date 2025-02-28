@@ -1,6 +1,7 @@
 package com.SpringEmployeePayrollApp.EmployeePayrollApp.service;
 
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.dto.EmployeeDTO;
+import com.SpringEmployeePayrollApp.EmployeePayrollApp.exception.EmployeeNotFoundException;
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.model.Employee;
 import com.SpringEmployeePayrollApp.EmployeePayrollApp.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Optional<Employee> getEmployeeById(Long id) {
-        return employeeRepository.findById(id);
+    public Employee getEmployeeById(Long id) {
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
     }
 
     public Employee saveEmployee(EmployeeDTO employeeDTO) {
@@ -36,18 +38,18 @@ public class EmployeeService {
     }
 
     public Employee updateEmployee(Long id, EmployeeDTO employeeDTO) {
-        Optional<Employee> existingEmployee = employeeRepository.findById(id);
-        if (existingEmployee.isPresent()) {
-            Employee employee = existingEmployee.get();
-            employee.setName(employeeDTO.getName());
-            employee.setSalary(employeeDTO.getSalary());
-            return employeeRepository.save(employee);
-        } else {
-            throw new RuntimeException("Employee not found with id: " + id);
-        }
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
+        employee.setName(employeeDTO.getName());
+        employee.setSalary(employeeDTO.getSalary());
+        return employeeRepository.save(employee);
     }
 
     public void deleteEmployee(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new EmployeeNotFoundException(id));
+
         employeeRepository.deleteById(id);
     }
 }
